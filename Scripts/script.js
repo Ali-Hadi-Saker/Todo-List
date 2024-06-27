@@ -44,7 +44,7 @@ function showTask(){
         new_done_task += `<div class="item">
                         <div class="input_controller ">
                             <textarea class="new_task">${finished_tasks[i]} \nuser: ${finished_task_users[i]}</textarea>                       
-                        
+                            <i class="fa-solid fa-xmark delete_btn"></i>
                     </div>                    
                     </div>`
     }
@@ -83,9 +83,13 @@ function deleteItem(i){
     tasks_list.splice(i, 1)
     //removing task and user name for lists
     users_list.splice(i, 1)
+    finished_tasks.splice(i, 1)
+    finished_task_users.splice(i,1)
     localStorage.setItem('task', JSON.stringify(tasks_list))
     //updating local storage    
     localStorage.setItem('user', JSON.stringify(users_list))
+    localStorage.setItem('finished_task', JSON.stringify(finished_tasks));
+    localStorage.setItem('finished_user', JSON.stringify(finished_task_users));
     showTask()
 }
 function displayDate(){
