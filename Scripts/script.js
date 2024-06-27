@@ -1,10 +1,9 @@
-let todo_card = document.getElementsByClassName('todo task-actions')
-let add_task_btn = document.querySelector('button')
+const todo_card = document.getElementsByClassName('todo task-actions')[0]
+const add_task_btn = document.querySelector('button')
+const new_task_input = document.getElementsByClassName('task_input_field')[0]
 add_task_btn.addEventListener('click', function(){
-    let new_task_todo = document.createElement('input')
-    new_task_todo.type = 'text'
-    new_task_todo.placeholder = 'Enter new task'
-    new_task_todo.className = 'new_task_todo'
-    todo_card[0].appendChild(new_task_todo)
-    console.log("hello world")
+    let new_task_todo = document.createElement('p')
+    new_task_todo.innerText = new_task_input.value
+    todo_card.appendChild(new_task_todo)
+    console.log(new_task_todo)
 })
