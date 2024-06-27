@@ -120,10 +120,10 @@ ul{
 .task_input_time {
     flex-grow: 1;
     font-size: 12px;
-    padding: 2px;
+    padding: 0 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
-    color: gray;
+    color: rgb(167, 165, 165);
     background-color: lightgrey;
 }
 .task_input_time:focus{

@@ -1,5 +1,6 @@
 const todo_card = document.getElementsByClassName('todo task-actions')[0]
 const finished_card = document.getElementsByClassName('finished task-actions')[0]
+const missed_card = document.getElementsByClassName('missed task-actions')[0]
 const add_task_btn = document.querySelector('button')
 const new_task_input = document.getElementsByClassName('task_input_field')[0]
 const user_task = document.getElementsByClassName('task_responsable_name')[0]
@@ -36,19 +37,34 @@ function addTask(new_task_input, user_task, task_time){
 function showTask(){
     //iterating thru tasks lists and adding it to the pening window
     let new_task = ''
+    let missed_task = ''
+    let now = new Date()
     for(let i = 0 ; i < tasks_list.length ; i++){
-        new_task += `<div class="item">
-                        <div class="input_controller ">
-                            <textarea class="new_task ">${tasks_list[i]} \nuser: ${users_list[i]} \ntime: ${task_time_list[i]}</textarea>                       
-                        <div class="edit_controller">
-                            <i class="fa-solid fa-check done_btn"></i>
-                            <i class="fa-solid fa-pen edit_btn"></i>
-                            <i class="fa-solid fa-xmark delete_btn"></i>
-                        </div>
-                    </div>                    
-                    </div>`
+        let task_time = new Date(task_time_list[i])
+        if( now > task_time){
+            missed_task +=  `<div class="item">
+            <div class="input_controller ">
+                <textarea class="new_task ">${tasks_list[i]} \nuser: ${users_list[i]} \ntime: ${task_time_list[i]}</textarea>                       
+            <div class="edit_controller">
+                <i class="fa-solid fa-xmark delete_btn"></i>
+            </div>
+        </div>                    
+        </div>`
+        }else{
+            new_task += `<div class="item">
+            <div class="input_controller ">
+                <textarea class="new_task ">${tasks_list[i]} \nuser: ${users_list[i]} \ntime: ${task_time_list[i]}</textarea>                       
+            <div class="edit_controller">
+                <i class="fa-solid fa-check done_btn"></i>
+                <i class="fa-solid fa-pen edit_btn"></i>
+                <i class="fa-solid fa-xmark delete_btn"></i>
+            </div>
+        </div>                    
+        </div>`
+        }
     }
     todo_card.innerHTML = new_task
+    missed_card.innerHTML = missed_task
     let new_done_task = ''
     for(let i = 0 ; i < finished_tasks.length ; i++){
         new_done_task += `<div class="item">
