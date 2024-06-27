@@ -1,10 +1,13 @@
 const todo_card = document.getElementsByClassName('todo task-actions')[0]
+const finished_card = document.getElementsByClassName('finished task-actions')[0]
 const add_task_btn = document.querySelector('button')
 const new_task_input = document.getElementsByClassName('task_input_field')[0]
 const user_task = document.getElementsByClassName('task_responsable_name')[0]
 const toda_date = document.getElementsByClassName('date')[0]
-let tasks_list = JSON.parse(localStorage.getItem('task')) || [];
-let users_list = JSON.parse(localStorage.getItem('user')) || [];
+let tasks_list = JSON.parse(localStorage.getItem('task')) || []
+let users_list = JSON.parse(localStorage.getItem('user')) || []
+let finished_tasks = []
+let finished_task_users = []
 add_task_btn.addEventListener('click', function(){
     addTask(new_task_input, user_task)
     showTask()
@@ -27,7 +30,7 @@ function showTask(){
     for(let i = 0 ; i < tasks_list.length ; i++){
         new_task += `<div class="item">
                         <div class="input_controller">
-                            <textarea class="new_task">${tasks_list[i]} \nuser: ${tasks_list[i]}</textarea>                       
+                            <textarea class="new_task">${tasks_list[i]} \nuser: ${users_list[i]}</textarea>                       
                         <div class="edit_controller">
                             <i class="fa-solid fa-check done_btn"></i>
                             <i class="fa-solid fa-pen edit_btn"></i>
@@ -38,6 +41,30 @@ function showTask(){
     }
     todo_card.innerHTML = new_task
     deleteTask()
+    finishedTask()
+}
+function finishedTask(){
+    let done_btn = document.querySelectorAll('.done_btn')
+    done_btn.forEach((db, i) =>{
+        db.addEventListener('click', () =>{moveTask(i)})
+    })
+}
+function moveTask(i){
+    finished_tasks.push(tasks_list[i])
+    finished_task_users.push(users_list[i])
+    tasks_list.splice(i, 1)
+    //removing task and user name for lists
+    users_list.splice(i, 1)
+    let new_task = ''
+    for(let i = 0 ; i < finished_tasks.length ; i++){
+        new_task += `<div class="item">
+                        <div class="input_controller">
+                            <textarea class="new_task">${finished_tasks[i]} \nuser: ${finished_task_users[i]}</textarea>                       
+                        
+                    </div>                    
+                    </div>`
+    }
+    finished_card.innerHTML = new_task
 }
 function deleteTask(){
     //access all delete btn 
