@@ -29,8 +29,8 @@ function showTask(){
     let new_task = ''
     for(let i = 0 ; i < tasks_list.length ; i++){
         new_task += `<div class="item">
-                        <div class="input_controller">
-                            <textarea class="new_task">${tasks_list[i]} \nuser: ${users_list[i]}</textarea>                       
+                        <div class="input_controller ">
+                            <textarea class="new_task ">${tasks_list[i]} \nuser: ${users_list[i]}</textarea>                       
                         <div class="edit_controller">
                             <i class="fa-solid fa-check done_btn"></i>
                             <i class="fa-solid fa-pen edit_btn"></i>
@@ -58,7 +58,7 @@ function moveTask(i){
     let new_task = ''
     for(let i = 0 ; i < finished_tasks.length ; i++){
         new_task += `<div class="item">
-                        <div class="input_controller">
+                        <div class="input_controller ">
                             <textarea class="new_task">${finished_tasks[i]} \nuser: ${finished_task_users[i]}</textarea>                       
                         
                     </div>                    
