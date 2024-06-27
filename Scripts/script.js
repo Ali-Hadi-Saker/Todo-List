@@ -4,21 +4,41 @@ const new_task_input = document.getElementsByClassName('task_input_field')[0]
 const user_task = document.getElementsByClassName('task_responsable_name')[0]
 const toda_date = document.getElementsByClassName('date')[0]
 const tasks_list = []
+const users_list = []
 add_task_btn.addEventListener('click', function(){
-    addTask(new_task_input)
-    let new_task_todo = document.createElement('li')
-    let new_user_task = document.createElement('p')
-    new_task_todo.innerText = new_task_input.value
-    new_user_task.innerText = `user: ${user_task.value}`
-    todo_card.appendChild(new_task_todo)
-    todo_card.appendChild(new_user_task)
+    addTask(new_task_input, user_task)
+    showTask()
+    
     new_task_input.value = ''
     user_task.value = ''
     console.log(tasks_list)
 })
-function addTask(new_task_input){
+function addTask(new_task_input, user_task){
     tasks_list.push(new_task_input.value)
+    users_list.push(user_task.value)
+    //adding new task into my tasks list
     localStorage.setItem('task', JSON.stringify(tasks_list))
+    localStorage.setItem('user', JSON.stringify(users_list))
+    //saving new task local storage
+}
+function showTask(){
+    let new_task = ''
+    for(let i = 0 ; i < tasks_list.length ; i++){
+        new_task += `<div class="item">
+                        <div class="input_controller">
+                            <textarea class="new_task">${tasks_list[i]} \nuser: ${tasks_list[i]}</textarea>                       
+                        <div class="edit_controller">
+                            <i class="fa-solid fa-check"></i>
+                            <i class="fa-solid fa-pen"></i>
+                        </div>
+                    </div>
+                    <div class="edit_controller">
+                        <button class="save_btn">save</button>
+                        <button class="cancel_btn">cancel</button>
+                    </div>
+                    </div>`
+    }
+    todo_card.innerHTML = new_task
 }
 function displayDate(){
     let date = new Date()
