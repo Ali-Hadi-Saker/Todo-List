@@ -3,8 +3,8 @@ const add_task_btn = document.querySelector('button')
 const new_task_input = document.getElementsByClassName('task_input_field')[0]
 const user_task = document.getElementsByClassName('task_responsable_name')[0]
 const toda_date = document.getElementsByClassName('date')[0]
-const tasks_list = []
-const users_list = []
+let tasks_list = JSON.parse(localStorage.getItem('task')) || [];
+let users_list = JSON.parse(localStorage.getItem('user')) || [];
 add_task_btn.addEventListener('click', function(){
     addTask(new_task_input, user_task)
     showTask()
@@ -28,17 +28,28 @@ function showTask(){
                         <div class="input_controller">
                             <textarea class="new_task">${tasks_list[i]} \nuser: ${tasks_list[i]}</textarea>                       
                         <div class="edit_controller">
-                            <i class="fa-solid fa-check"></i>
-                            <i class="fa-solid fa-pen"></i>
+                            <i class="fa-solid fa-check done_btn"></i>
+                            <i class="fa-solid fa-pen edit_btn"></i>
+                            <i class="fa-solid fa-xmark delete_btn"></i>
                         </div>
-                    </div>
-                    <div class="edit_controller">
-                        <button class="save_btn">save</button>
-                        <button class="cancel_btn">cancel</button>
-                    </div>
+                    </div>                    
                     </div>`
     }
     todo_card.innerHTML = new_task
+    deleteTask()
+}
+function deleteTask(){
+    let delete_btn = document.querySelectorAll('.delete_btn')
+    delete_btn.forEach((db, i) =>{
+        db.addEventListener('click', ()=>{deleteItem(i)})
+    });
+}
+function deleteItem(i){
+    tasks_list.splice(i, 1)
+    users_list.splice(i, 1)
+    localStorage.setItem('task', JSON.stringify(tasks_list))    
+    localStorage.setItem('user', JSON.stringify(users_list))
+    location.reload()
 }
 function displayDate(){
     let date = new Date()
