@@ -6,15 +6,16 @@
   }
 body{
     background-color: aqua;
+    display: flex;
 }
 
 .sidebar{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 20%;
+    width: 23%;
     height: 100vh;
-    background-color: grey;
+    background-color: #CECCCC;
 }
 .header{
     display: flex;
@@ -26,7 +27,6 @@ body{
     margin-right: 10px;
 }
 .web-title{
-    padding-bottom: 10px;
     font-size: 22px;
     font-weight: bold;
     
@@ -39,7 +39,7 @@ body{
 }
 .menu-links .nav-link{
     height: 40px;
-    background-color: lightgrey;
+    background-color: #E2DDDD;
     padding: 10px;
     border-radius: 10px;
     display: flex;
@@ -47,17 +47,63 @@ body{
     align-items: center;
     list-style-type: none;
 }
+.menu-links .nav-link i {
+    font-size: 25px;
+    margin-right: 5px;
+}
 .menu-links .nav-link a {
     text-decoration: none;
     color: white;
     display: flex;
     gap: 15px;
-    font-size: 18px;
+    font-size: 20px;
 }
-
-
-
 ul{
     text-decoration: none;
     list-style-type: none;
+}
+.web-page{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.web-page .header{
+    height: 5%;
+    display: flex;
+    align-items: center;
+    padding: 50px;
+    justify-content: space-between;
+}
+.web-page .header button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
+    height: 40px;
+    width: 120px;
+    border-radius: 10px;
+    background-color: #AB68FF;
+    color: white;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+}
+.web-page .header .title{
+    font-size: 20px;
+    font-weight: 600;
+}
+.web-page .cards{
+    background-color: red;
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+.web-page .cards .task-card{
+    height: 80%;
+    width: 20%;
+    background-color: #D9D9D9;
+    border-radius: 10px;
 }
