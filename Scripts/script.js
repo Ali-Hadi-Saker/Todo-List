@@ -2,6 +2,7 @@ const todo_card = document.getElementsByClassName('todo task-actions')[0]
 const add_task_btn = document.querySelector('button')
 const new_task_input = document.getElementsByClassName('task_input_field')[0]
 const user_task = document.getElementsByClassName('task_responsable_name')[0]
+const toda_date = document.getElementsByClassName('date')[0]
 add_task_btn.addEventListener('click', function(){
     let new_task_todo = document.createElement('li')
     let new_user_task = document.createElement('p')
@@ -13,3 +14,12 @@ add_task_btn.addEventListener('click', function(){
     user_task.value = ''
     console.log(new_task_todo)
 })
+function displayDate(){
+    let date = new Date()
+    date = date.toString().split(" ")
+    toda_date.innerText = `${date[0]} ${date[1]} ${date[2]}` 
+    console.log(date)
+}
+window.onload = function(){
+    displayDate()
+}
