@@ -14,21 +14,48 @@ body{
     align-items: center;
     width: 20%;
     height: 100vh;
-    background-color: lightgrey;
+    background-color: grey;
 }
-.sidebar .header{
+.header{
     display: flex;
     align-items: center;
+    margin-bottom: 40px;
 }
-.sidebar .todo-icon img{
+.todo-icon img{
     width: 80px;
+    margin-right: 10px;
 }
-.sidebar .web-title{
+.web-title{
     padding-bottom: 10px;
     font-size: 22px;
     font-weight: bold;
     
 }
+.menu-links{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+.menu-links .nav-link{
+    height: 40px;
+    background-color: lightgrey;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    margin-top: 10px;
+    align-items: center;
+    list-style-type: none;
+}
+.menu-links .nav-link a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    gap: 15px;
+    font-size: 18px;
+}
+
+
 
 ul{
     text-decoration: none;
