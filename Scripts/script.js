@@ -22,6 +22,7 @@ function addTask(new_task_input, user_task){
     //saving new task local storage
 }
 function showTask(){
+    //iterating thru tasks lists and adding it to the pening window
     let new_task = ''
     for(let i = 0 ; i < tasks_list.length ; i++){
         new_task += `<div class="item">
@@ -39,24 +40,29 @@ function showTask(){
     deleteTask()
 }
 function deleteTask(){
+    //access all delete btn 
     let delete_btn = document.querySelectorAll('.delete_btn')
     delete_btn.forEach((db, i) =>{
         db.addEventListener('click', ()=>{deleteItem(i)})
+        //call delete item function for the corresponding task
     });
 }
 function deleteItem(i){
     tasks_list.splice(i, 1)
+    //removing task and user name for lists
     users_list.splice(i, 1)
-    localStorage.setItem('task', JSON.stringify(tasks_list))    
+    localStorage.setItem('task', JSON.stringify(tasks_list))
+    //updating local storage    
     localStorage.setItem('user', JSON.stringify(users_list))
     location.reload()
 }
 function displayDate(){
+    //get the date  
     let date = new Date()
     date = date.toString().split(" ")
     toda_date.innerText = `${date[0]} ${date[1]} ${date[2]}` 
-    console.log(date)
 }
 window.onload = function(){
+    //display date function called when loading window
     displayDate()
 }
