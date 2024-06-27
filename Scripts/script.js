@@ -4,23 +4,33 @@ const add_task_btn = document.querySelector('button')
 const new_task_input = document.getElementsByClassName('task_input_field')[0]
 const user_task = document.getElementsByClassName('task_responsable_name')[0]
 const toda_date = document.getElementsByClassName('date')[0]
+const task_time = document.getElementsByClassName('task_input_time')[0]
 let tasks_list = JSON.parse(localStorage.getItem('task')) || []
 let users_list = JSON.parse(localStorage.getItem('user')) || []
 let finished_tasks = []
 let finished_task_users = []
+let task_time_list = []
 add_task_btn.addEventListener('click', function(){
-    addTask(new_task_input, user_task)
+    if(new_task_input.value === ''){
+        alert("Enter your task")
+    }else{
+        addTask(new_task_input, user_task, task_time)
     showTask()    
     new_task_input.value = ''
     user_task.value = ''
     console.log(tasks_list)
+    }
+    
 })
-function addTask(new_task_input, user_task){
+function addTask(new_task_input, user_task, task_time){
+
     tasks_list.push(new_task_input.value)
     users_list.push(user_task.value)
+    task_time_list.push(task_time.value)
     //adding new task into my tasks list
     localStorage.setItem('task', JSON.stringify(tasks_list))
     localStorage.setItem('user', JSON.stringify(users_list))
+    localStorage.setItem('time', JSON.stringify(task_time_list))
     //saving new task local storage
 }
 function showTask(){
@@ -29,7 +39,7 @@ function showTask(){
     for(let i = 0 ; i < tasks_list.length ; i++){
         new_task += `<div class="item">
                         <div class="input_controller ">
-                            <textarea class="new_task ">${tasks_list[i]} \nuser: ${users_list[i]}</textarea>                       
+                            <textarea class="new_task ">${tasks_list[i]} \nuser: ${users_list[i]} \ntime: ${task_time_list[i]}</textarea>                       
                         <div class="edit_controller">
                             <i class="fa-solid fa-check done_btn"></i>
                             <i class="fa-solid fa-pen edit_btn"></i>
@@ -85,11 +95,13 @@ function deleteItem(i){
     users_list.splice(i, 1)
     finished_tasks.splice(i, 1)
     finished_task_users.splice(i,1)
+    task_time_list.splice(i,1)
     localStorage.setItem('task', JSON.stringify(tasks_list))
     //updating local storage    
     localStorage.setItem('user', JSON.stringify(users_list))
     localStorage.setItem('finished_task', JSON.stringify(finished_tasks));
     localStorage.setItem('finished_user', JSON.stringify(finished_task_users));
+    localStorage.setItem('time', JSON.stringify(task_time_list))
     showTask()
 }
 function displayDate(){
@@ -97,6 +109,7 @@ function displayDate(){
     let date = new Date()
     date = date.toString().split(" ")
     toda_date.innerText = `${date[0]} ${date[1]} ${date[2]}` 
+    console.log(date)
 }
 window.onload = function(){
     //display date function called when loading window
