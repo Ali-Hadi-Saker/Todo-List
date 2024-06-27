@@ -70,10 +70,9 @@ ul{
     flex-direction: column;
 }
 .web-page .header{
-    height: 5%;
+    height: 30%;
     display: flex;
-    align-items: center;
-    padding: 50px;
+    padding: 10px;
     justify-content: space-between;
 }
 .web-page .header button {
@@ -83,6 +82,7 @@ ul{
     margin-right: 40px;
     height: 40px;
     width: 120px;
+    padding: 5px;
     border-radius: 10px;
     background-color: #AB68FF;
     color: white;
@@ -97,15 +97,30 @@ ul{
 }
 .web-page .header .task_input {
     display: flex;
-    gap: 10px;
-    width: 50%;
+    justify-content: space-between;
+    gap: 15px;
+    width: 60%;
+    height: 100%;
 }
 .web-page .header .task_input .task_input_field {
-    flex-grow: 1;
+    flex-grow: 3;
     padding: 10px;
     font-size: 15px;
     border-radius: 10px;
     border: 1px solid #ccc;
+}
+.web-page .header .task_input .task_input_erea .task_responsable_name{
+    padding: 10px;
+    font-size: 15px;
+    flex-grow: 1;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+.web-page .header .task_input .task_input_erea {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .web-page .header .task_input .task_input_field:focus{
     outline: none;
