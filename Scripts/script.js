@@ -10,8 +10,7 @@ let finished_tasks = []
 let finished_task_users = []
 add_task_btn.addEventListener('click', function(){
     addTask(new_task_input, user_task)
-    showTask()
-    
+    showTask()    
     new_task_input.value = ''
     user_task.value = ''
     console.log(tasks_list)
@@ -40,6 +39,16 @@ function showTask(){
                     </div>`
     }
     todo_card.innerHTML = new_task
+    let new_done_task = ''
+    for(let i = 0 ; i < finished_tasks.length ; i++){
+        new_done_task += `<div class="item">
+                        <div class="input_controller ">
+                            <textarea class="new_task">${finished_tasks[i]} \nuser: ${finished_task_users[i]}</textarea>                       
+                        
+                    </div>                    
+                    </div>`
+    }
+    finished_card.innerHTML = new_done_task
     deleteTask()
     finishedTask()
 }
@@ -55,16 +64,12 @@ function moveTask(i){
     tasks_list.splice(i, 1)
     //removing task and user name for lists
     users_list.splice(i, 1)
-    let new_task = ''
-    for(let i = 0 ; i < finished_tasks.length ; i++){
-        new_task += `<div class="item">
-                        <div class="input_controller ">
-                            <textarea class="new_task">${finished_tasks[i]} \nuser: ${finished_task_users[i]}</textarea>                       
-                        
-                    </div>                    
-                    </div>`
-    }
-    finished_card.innerHTML = new_task
+    
+    localStorage.setItem('task', JSON.stringify(tasks_list));
+    localStorage.setItem('user', JSON.stringify(users_list));
+    localStorage.setItem('finished_task', JSON.stringify(finished_tasks));
+    localStorage.setItem('finished_user', JSON.stringify(finished_task_users));
+    showTask()
 }
 function deleteTask(){
     //access all delete btn 
@@ -81,7 +86,7 @@ function deleteItem(i){
     localStorage.setItem('task', JSON.stringify(tasks_list))
     //updating local storage    
     localStorage.setItem('user', JSON.stringify(users_list))
-    location.reload()
+    showTask()
 }
 function displayDate(){
     //get the date  
