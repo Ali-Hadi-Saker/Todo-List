@@ -95,6 +95,21 @@ ul{
     font-size: 20px;
     font-weight: 600;
 }
+.web-page .header .task_input {
+    display: flex;
+    gap: 10px;
+    width: 50%;
+}
+.web-page .header .task_input .task_input_field {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+.web-page .header .task_input .task_input_field:focus{
+    outline: none;
+}
 .web-page .cards{
     display: flex;
     justify-content: space-around;
@@ -105,6 +120,7 @@ ul{
 .web-page .cards .task-card{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     height: 80%;
     width: 25%;
     background-color: azure;
