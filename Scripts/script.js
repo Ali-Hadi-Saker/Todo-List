@@ -4,13 +4,15 @@ const missed_card = document.getElementsByClassName('missed task-actions')[0]
 const add_task_btn = document.querySelector('button')
 const new_task_input = document.getElementsByClassName('task_input_field')[0]
 const user_task = document.getElementsByClassName('task_responsable_name')[0]
-const toda_date = document.getElementsByClassName('date')[0]
+const today_date = document.getElementsByClassName('date')[0]
 const task_time = document.getElementsByClassName('task_input_time')[0]
 let tasks_list = JSON.parse(localStorage.getItem('task')) || []
 let users_list = JSON.parse(localStorage.getItem('user')) || []
 let finished_tasks = []
 let finished_task_users = []
 let task_time_list = []
+let post_due_task = []
+let post_due_task_time = []
 add_task_btn.addEventListener('click', function(){
     if(new_task_input.value === ''){
         alert("Enter your task")
@@ -35,11 +37,21 @@ function addTask(new_task_input, user_task, task_time){
     //saving new task local storage
 }
 function showTask(){
-    //iterating thru tasks lists and adding it to the pening window
+    //iterating thru tasks lists if now time > task due time add it to missed tasks else to pending
     let new_task = ''
     let missed_task = ''
     let now = new Date()
     for(let i = 0 ; i < tasks_list.length ; i++){
+        for(let j = 0; j < post_due_task.length; j++){
+            missed_task +=  `<div class="item">
+            <div class="input_controller ">
+                <textarea class="new_task ">${tasks_list[i]} \nuser: ${users_list[i]} \ntime: ${task_time_list[i]}</textarea>                       
+            <div class="edit_controller">
+                <i class="fa-solid fa-xmark delete_btn"></i>
+            </div>
+        </div>                    
+        </div>`
+        }
         let task_time = new Date(task_time_list[i])
         if( now > task_time){
             missed_task +=  `<div class="item">
@@ -50,6 +62,8 @@ function showTask(){
             </div>
         </div>                    
         </div>`
+        moveToPostDue(i)
+        //move task from pending storage to post due storage
         }else{
             new_task += `<div class="item">
             <div class="input_controller ">
@@ -65,18 +79,30 @@ function showTask(){
     }
     todo_card.innerHTML = new_task
     missed_card.innerHTML = missed_task
-    let new_done_task = ''
+    let completed_task = '' 
     for(let i = 0 ; i < finished_tasks.length ; i++){
-        new_done_task += `<div class="item">
+        completed_task += `<div class="item">
                         <div class="input_controller ">
                             <textarea class="new_task">${finished_tasks[i]} \nuser: ${finished_task_users[i]}</textarea>                       
                             <i class="fa-solid fa-xmark delete_btn"></i>
                     </div>                    
                     </div>`
     }
-    finished_card.innerHTML = new_done_task
+    finished_card.innerHTML = completed_task
     deleteTask()
     finishedTask()
+}
+function moveToPostDue(i){
+    post_due_task.push(tasks_list[i])
+    post_due_task_time.push(task_time_list[i])
+    tasks_list.splice(i, 1)
+    task_time_list.splice(i, 1)
+    localStorage.setItem('task', JSON.stringify(tasks_list))
+    localStorage.setItem('user', JSON.stringify(users_list))
+    localStorage.setItem('post_due_task', JSON.stringify(post_due_task))
+    localStorage.setItem('post_due_time', JSON.stringify(post_due_task_time))
+    showTask()
+
 }
 function finishedTask(){
     let done_btn = document.querySelectorAll('.done_btn')
@@ -89,12 +115,11 @@ function moveTask(i){
     finished_task_users.push(users_list[i])
     tasks_list.splice(i, 1)
     //removing task and user name for lists
-    users_list.splice(i, 1)
-    
-    localStorage.setItem('task', JSON.stringify(tasks_list));
-    localStorage.setItem('user', JSON.stringify(users_list));
-    localStorage.setItem('finished_task', JSON.stringify(finished_tasks));
-    localStorage.setItem('finished_user', JSON.stringify(finished_task_users));
+    users_list.splice(i, 1)    
+    localStorage.setItem('task', JSON.stringify(tasks_list))
+    localStorage.setItem('user', JSON.stringify(users_list))
+    localStorage.setItem('finished_task', JSON.stringify(finished_tasks))
+    localStorage.setItem('finished_user', JSON.stringify(finished_task_users))
     showTask()
 }
 function deleteTask(){
@@ -124,10 +149,11 @@ function displayDate(){
     //get the date  
     let date = new Date()
     date = date.toString().split(" ")
-    toda_date.innerText = `${date[0]} ${date[1]} ${date[2]}` 
+    today_date.innerText = `${date[0]} ${date[1]} ${date[2]}` 
     console.log(date)
 }
 window.onload = function(){
     //display date function called when loading window
     displayDate()
+    showTask()
 }
